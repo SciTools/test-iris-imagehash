@@ -7,4 +7,4 @@ A perceptual hash image store for graphical testing of `SciTools iris <https://g
 
 Images shall not be removed from this repository, it is to be added to only.
 
-All files in the `image_files` folder shall be named with the perceptual image hash of the file (plus a suitable suffix).
+All files in the images folder shall be named with the perceptual image hash of the file (plus a suitable suffix).
