@@ -1,0 +1,5 @@
+pip
+pillow
+numpy
+scipy
+pywavelets

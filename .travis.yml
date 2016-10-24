@@ -30,7 +30,7 @@ install:
 
   # Customise the testing environment
   # ---------------------------------
-  - conda install pip pillow numpy scipy pywavelets
+  - conda install --quiet --file conda-requirements.txt
   - pip install imagehash
 
   # Summerise environment
