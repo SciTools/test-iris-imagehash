@@ -9,6 +9,9 @@ branches:
 python:
   - "2.7"
 
+git:
+  depth: 10000
+
 install:
   # Fetch and install conda
   # -----------------------
