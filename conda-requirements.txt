@@ -1,5 +1,1 @@
-pip
-pillow
-numpy
-scipy
-pywavelets
+imagehash>=4.0

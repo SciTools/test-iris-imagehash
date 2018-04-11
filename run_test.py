@@ -15,7 +15,7 @@ class TestHash(unittest.TestCase):
     def test(self):
         self.maxDiff = None
         exceptions = []
-        for fname in glob.glob("images/*.png"):
+        for fname in glob.glob("images/v4/*.png"):
             phash = imagehash.phash(Image.open(fname), hash_size=_HASH_SIZE)
             fname_base = os.path.basename(fname)
             fname_hash = os.path.splitext(fname_base)[0]

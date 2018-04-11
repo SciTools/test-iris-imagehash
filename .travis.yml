@@ -19,7 +19,6 @@ install:
   - conda config --set changeps1 no
   - conda config --set show_channel_urls true
   - conda config --add channels conda-forge
-  - conda update --quiet conda
   - ENV_NAME="test-environment"
   - conda create --quiet -n ${ENV_NAME} python=${TRAVIS_PYTHON_VERSION}
   - source activate ${ENV_NAME}
@@ -27,7 +26,6 @@ install:
   # Customise the testing environment
   # ---------------------------------
   - conda install --quiet --file conda-requirements.txt
-  - pip install imagehash
 
   # Summerise environment
   # ---------------------
