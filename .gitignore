@@ -1,0 +1,41 @@
+*.py[co]
+
+# Packages
+*.egg?
+*.egg-info
+dist
+build
+eggs
+parts
+bin
+var
+sdist
+develop-eggs
+.installed.cfg
+
+# Installer logs
+pip-log.txt
+pip-cache
+
+# Unit test / coverage reports
+.coverage
+.tox
+.pytest_cache
+
+#Translations
+*.mo
+
+# Pydev/Eclipse files
+.project
+.pydevproject
+.settings
+
+# PyCharm files
+/.idea
+*.cover
+
+# Created by editiors
+*~
+\#*
+\.\#*
+*.swp
