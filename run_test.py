@@ -29,6 +29,7 @@ class TestListing(unittest.TestCase):
     def test(self):
         # Check that the image listing file contents are up to date.
         import recreate_v4_files_listing as v4list
+
         file_names = set(v4list.get_v4_imagefile_names())
         listing_filepath = v4list.V4_LISTFILE_NAME
         self.assertTrue(os.path.exists(listing_filepath))
