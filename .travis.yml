@@ -1,9 +1,12 @@
-language: python
+language: minimal
+dist: xenial
 
-sudo: false
+env:
+  matrix:
+    - PYTHON_VERSION=3.7
 
-python:
-  - "2.7"
+git:
+  depth: 10000
 
 branches:
   only:
@@ -12,7 +15,7 @@ branches:
 install:
   # Fetch and install conda
   # -----------------------
-  - export CONDA_BASE="http://repo.continuum.io/miniconda/Miniconda2"
+  - export CONDA_BASE="http://repo.continuum.io/miniconda/Miniconda3"
   - wget ${CONDA_BASE}-latest-Linux-x86_64.sh -O miniconda.sh;
   - bash miniconda.sh -b -p ${HOME}/miniconda
   - export PATH="${HOME}/miniconda/bin:${PATH}"
@@ -24,7 +27,7 @@ install:
   - conda config --set show_channel_urls true
   - conda config --add channels conda-forge
   - ENV_NAME="test-environment"
-  - conda create --quiet -n ${ENV_NAME} python=${TRAVIS_PYTHON_VERSION}
+  - conda create --quiet -n ${ENV_NAME} python=${PYTHON_VERSION}
   - source activate ${ENV_NAME}
 
   # Customise the testing environment
