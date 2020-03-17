@@ -1,1 +1,2 @@
 imagehash>=4.0
+pillow<7
