@@ -3,7 +3,7 @@ Test Iris ImageHash
 
 |Travis|_
 
-\(C) British Crown Copyright 2015 - 2016, Met Office
+\(C) British Crown Copyright 2015 - 2020, Met Office
 
 A perceptual hash image store for graphical testing of `SciTools iris <https://github.com/SciTools/iris>`_.
 
