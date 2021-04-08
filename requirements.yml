@@ -1,0 +1,11 @@
+name: phash-dev
+
+channels:
+  - conda-forge
+
+dependencies:
+  - black=20.8b1
+  - flake8
+  - imagehash>=4.0
+  - pillow<7
+  - pre-commit
