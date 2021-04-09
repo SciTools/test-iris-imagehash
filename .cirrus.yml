@@ -1,0 +1,68 @@
+# Reference:
+#   - https://cirrus-ci.org/guide/writing-tasks/
+#   - https://cirrus-ci.org/guide/linux/
+#   - https://cirrus-ci.org/guide/macOS/
+#   - https://cirrus-ci.org/guide/windows/
+#   - https://hub.docker.com/_/gcc/
+#   - https://hub.docker.com/_/python/
+
+#
+# Global defaults.
+#
+container:
+  image: python:3.8
+
+env:
+  # Maximum cache period (in weeks) before forcing a new cache upload.
+  CACHE_PERIOD: "2"
+  # Increment the build number to force new mambaforge cache upload.
+  MAMBA_CACHE_BUILD: "0"
+  # Increment the build number to force new phash cache upload.
+  PHASH_CACHE_BUILD: "0"
+  # Base environment conda packages to be installed
+  MAMBA_CACHE_PACKAGES: "conda-lock"
+
+#
+# Testing (Linux)
+#
+linux_task:
+  auto_cancellation: true
+  container:
+    image: gcc:latest
+  env:
+    PATH: ${HOME}/mambaforge/bin:${PATH}
+    ENV_NAME: phash
+    YAML_FILE: ${CIRRUS_WORKING_DIR}/requirements.yml
+  mamba_cache:
+    folder: ${HOME}/mambaforge
+    fingerprint_script:
+      - wget --quiet https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-Linux-x86_64.sh -O mambaforge.sh
+      - echo "${CIRRUS_OS} $(sha256sum mambaforge.sh)"
+      - echo "${MAMBA_CACHE_PACKAGES}"
+      - echo "$(date +%Y).$(expr $(date +%U) / ${CACHE_PERIOD}):${MAMBA_CACHE_BUILD}"
+      - uname -r
+    populate_script:
+      - export CONDA_OVERRIDE_LINUX="$(uname -r | cut -d'+' -f1)"
+      - bash mambaforge.sh -b -p ${HOME}/mambaforge
+      - conda config --set always_yes yes --set changeps1 no
+      - conda config --set show_channel_urls True
+      - conda config --add channels conda-forge
+      - conda install --quiet --name base ${MAMBA_CACHE_PACKAGES}
+  check_script:
+    - conda info --all
+    - conda list --name base
+  phash_cache:
+    folder: ${CIRRUS_WORKING_DIR}/mambaforge/envs/${ENV_NAME}
+    fingerprint_script:
+      - echo "${CIRRUS_OS} ${ENV_NAME} tests"
+      - echo "$(date +%Y).$(expr $(date +%U) / ${CACHE_PERIOD}):${PHASH_CACHE_BUILD}"
+      - cat ${YAML_FILE}
+      - uname -r
+    populate_script:
+      - export CONDA_OVERRIDE_LINUX="$(uname -r | cut -d'+' -f1)"
+      - conda-lock --mamba --platform linux-64 --file ${YAML_FILE}
+      - mamba create --name ${ENV_NAME} --quiet --file conda-linux-64.lock
+      - conda info --envs
+  test_script:
+    - source activate ${ENV_NAME}
+    - python run_test.py 
