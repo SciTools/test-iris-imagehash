@@ -60,9 +60,9 @@ linux_task:
       - uname -r
     populate_script:
       - export CONDA_OVERRIDE_LINUX="$(uname -r | cut -d'+' -f1)"
-      - conda-lock --mamba --platform linux-64 --file ${YAML_FILE}
+      - conda-lock --kind=explicit --mamba --platform linux-64 --file ${YAML_FILE}
       - mamba create --name ${ENV_NAME} --quiet --file conda-linux-64.lock
       - conda info --envs
   test_script:
     - source activate ${ENV_NAME}
-    - python run_test.py 
+    - python run_test.py
