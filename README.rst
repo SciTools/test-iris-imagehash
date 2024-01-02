@@ -3,7 +3,7 @@ Test Iris ImageHash
 
 |CirrusCI|_ |PreCommit|_ |Black|_
 
-\(C) British Crown Copyright 2015 - 2021, Met Office
+\(C) British Crown Copyright 2015 - 2024, Met Office
 
 A perceptual hash image store for graphical testing of `SciTools iris <https://github.com/SciTools/iris>`_.
 
