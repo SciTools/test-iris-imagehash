@@ -65,4 +65,4 @@ linux_task:
       - conda info --envs
   test_script:
     - source activate ${ENV_NAME}
-    - python run_test.py
+    - pytest run_test.py

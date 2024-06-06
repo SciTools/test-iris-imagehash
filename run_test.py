@@ -1,39 +1,36 @@
 #!/usr/bin/env python
 
-import glob
-import os
-import unittest
+from pathlib import Path
 
-from PIL import Image
 import imagehash
-
+from PIL import Image
 
 _HASH_SIZE = 16
 
 
-class TestHash(unittest.TestCase):
+class TestHash:
     def test(self):
         self.maxDiff = None
         exceptions = []
-        for fname in glob.glob("images/v4/*.png"):
+        for fname in Path("images/v4").glob("*.png"):
             phash = imagehash.phash(Image.open(fname), hash_size=_HASH_SIZE)
-            fname_base = os.path.basename(fname)
-            fname_hash = os.path.splitext(fname_base)[0]
+            fname_base = fname.name
+            fname_hash = fname.stem
             if str(phash) != fname_hash:
                 msg = "Calculated phash {} does not match filename {!r}."
                 exceptions.append(ValueError(msg.format(str(phash), fname_base)))
-        self.assertEqual([], exceptions)
+        assert exceptions == [], "\n".join(str(e) for e in exceptions)
 
 
-class TestListing(unittest.TestCase):
+class TestListing:
     def test(self):
         # Check that the image listing file contents are up to date.
         import recreate_v4_files_listing as v4list
 
         file_names = set(v4list.get_v4_imagefile_names())
-        listing_filepath = v4list.V4_LISTFILE_NAME
-        self.assertTrue(os.path.exists(listing_filepath))
-        with open(listing_filepath) as listing_file:
+        listing_filepath = Path(v4list.V4_LISTFILE_NAME)
+        assert listing_filepath.exists()
+        with listing_filepath.open() as listing_file:
             listed_names = [line.strip() for line in listing_file.readlines()]
 
         files = set(file_names)
@@ -52,11 +49,5 @@ class TestListing(unittest.TestCase):
             if missing:
                 msg += "\n  Names in the listing, but not in the directory:"
                 msg += "".join(["\n      " + name for name in missing])
-            msg += '\n\n*** Please run "{}.py" to correct. ***'.format(
-                os.path.basename(v4list.__name__)
-            )
-            self.assertEqual(listed, files, msg)
-
-
-if __name__ == "__main__":
-    unittest.main()
+            msg += f'\n\n*** Please run "{Path(v4list.__file__).name}" to correct. ***'
+            assert listed == files, msg
