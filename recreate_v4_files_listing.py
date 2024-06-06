@@ -16,7 +16,20 @@ def get_v4_imagefile_names(
     search_dirpath: Path = V4_DIR,
     filespec: str = "*.png",
 ) -> list[str]:
-    """Return a list of the current image files in the v4 subdirectory."""
+    """Return a list of the current image files in the v4 subdirectory.
+
+    Parameters
+    ----------
+    search_dirpath : Path
+        The directory to search for files.
+    filespec : str
+        The glob string to search for.
+
+    Returns
+    -------
+    list[str]
+        The names of the files found in the search directory.
+    """
     file_paths = search_dirpath.glob(filespec)
     return [file_path.name for file_path in file_paths]
 
@@ -26,7 +39,17 @@ def create_v4_images_listfile(
     filespec: str = "*.png",
     output_filepath: Path = V4_LISTFILE_PATH,
 ) -> None:
-    """Create a listfile of the current image files in the v4 subdirectory."""
+    """Create a listfile of the current image files in the v4 subdirectory.
+
+    Parameters
+    ----------
+    search_dirpath : Path
+        The directory to search for files.
+    filespec : str
+        The glob string to search for.
+    output_filepath : Path
+        The file to write the list of file names to.
+    """
     file_names = get_v4_imagefile_names(search_dirpath, filespec)
     with output_filepath.open("w") as f_out:
         for file_name in sorted(file_names):
