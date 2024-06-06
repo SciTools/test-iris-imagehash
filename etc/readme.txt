@@ -23,11 +23,11 @@ The following packages will be downloaded:
 
 The imagerepo.json file (and associated phash files) were created with the
 imagehash.phash function, using a hash_size=16, a tolerance=2, and the above
-software stack. 
+software stack.
 
 A phash image is considered not similar to the list of registered expected phash
 images for an individual test case iff it has a phash hamming distance greater
-than the specified tolerance for *all* of the registered expected phash images. 
+than the specified tolerance for *all* of the registered expected phash images.
 
 Note that, the calculation of a phash for an image *may* be sensitive to the
 version of pillow. The use of pillow 3.3.1 and at least 3.4.0 showed a minor

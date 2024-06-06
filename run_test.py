@@ -21,9 +21,7 @@ class TestHash(unittest.TestCase):
             fname_hash = os.path.splitext(fname_base)[0]
             if str(phash) != fname_hash:
                 msg = "Calculated phash {} does not match filename {!r}."
-                exceptions.append(
-                    ValueError(msg.format(str(phash), fname_base))
-                )
+                exceptions.append(ValueError(msg.format(str(phash), fname_base)))
         self.assertEqual([], exceptions)
 
 
