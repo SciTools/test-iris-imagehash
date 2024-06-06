@@ -93,3 +93,15 @@ exclude = [
     '\.__ne__$',
     '\.__repr__$',
 ]
+
+[tool.repo-review]
+ignore = [
+    # https://learn.scientific-python.org/development/guides/style/#MY102
+    "MY102",  # MyPy show_error_codes deprecated
+    # https://learn.scientific-python.org/development/guides/style/#PC170
+    "PC170",  # Uses PyGrep hooks
+    # https://learn.scientific-python.org/development/guides/style/#PC180
+    "PC180",  # Uses prettier
+    # https://learn.scientific-python.org/development/guides/pytest/#PP309
+    "PP309",  # Filter warnings specified
+]
