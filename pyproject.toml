@@ -95,7 +95,7 @@ enable_error_code = ["ignore-without-code", "redundant-expr", "truthy-bool"]
 exclude = [
     "^run_test\\.py$",
 ]
-strict = true  # Default value, make true when introducing type hinting.
+strict = true
 
 [tool.pytest.ini_options]
 # configure settings as recommended by repo-review:
