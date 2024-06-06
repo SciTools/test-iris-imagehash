@@ -100,6 +100,7 @@ strict = true  # Default value, make true when introducing type hinting.
 [tool.pytest.ini_options]
 # configure settings as recommended by repo-review:
 addopts = ["-ra", "--strict-config", "--strict-markers"]
+filterwarnings = ["error"]
 log_cli = "True"
 log_cli_level = "INFO"
 minversion = "6.0"
@@ -108,14 +109,10 @@ xfail_strict = "True"
 
 [tool.repo-review]
 ignore = [
-    # https://learn.scientific-python.org/development/guides/style/#MY102
-    "MY102",  # MyPy show_error_codes deprecated
     # https://learn.scientific-python.org/development/guides/style/#PC170
     "PC170",  # Uses PyGrep hooks
     # https://learn.scientific-python.org/development/guides/style/#PC180
     "PC180",  # Uses prettier
-    # https://learn.scientific-python.org/development/guides/pytest/#PP309
-    "PP309",  # Filter warnings specified
 
     # https://learn.scientific-python.org/development/guides/gha-basic/
     "GH",     # TODO: switch to GitHub Actions
