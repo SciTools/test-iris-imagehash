@@ -8,6 +8,17 @@ ci:
   autoupdate_commit_msg: "chore: update pre-commit hooks"
 
 
+# Alphabetised, for lack of a better order.
+files: |
+    (?x)(
+        benchmarks\/.+\.py|
+        docs\/.+\.py|
+        lib\/.+\.py|
+        noxfile\.py|
+        pyproject\.toml|
+        setup\.py|
+        src\/.+\.py
+    )
 minimum_pre_commit_version: 1.21.0
 
 repos:
@@ -71,7 +82,7 @@ repos:
     rev: 'v1.10.0'
     hooks:
     -   id: mypy
-        exclude: 'run_test\.py'
+        exclude: 'noxfile\.py|docs/conf\.py'
 
 -   repo: https://github.com/abravalheri/validate-pyproject
     # More exhaustive than Ruff RUF200.
@@ -91,4 +102,3 @@ repos:
     hooks:
       - id: numpydoc-validation
         types: [file, python]
-        exclude: 'run_test\.py'
