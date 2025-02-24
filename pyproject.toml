@@ -123,6 +123,8 @@ ignore = [
     "PP002",  # Build-system
     # https://learn.scientific-python.org/development/guides/style/#PP003
     "PP003",  # Wheel dependency
+    # https://learn.scientific-python.org/development/guides/packaging-simple/#package-structure
+    "PY005",  # tests folder
     # https://learn.scientific-python.org/development/guides/style/#PY004
     "PY004",  # Docs folder
     # https://learn.scientific-python.org/development/guides/style/#PY007
