@@ -6,7 +6,7 @@ name: ci-template-check
 on:
   pull_request_target:
     branches:
-      - main
+      - gh-pages
 
 jobs:
   prompt-share:
