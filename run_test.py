@@ -5,6 +5,8 @@ from pathlib import Path
 import imagehash
 from PIL import Image
 
+import recreate_v4_files_listing as v4list
+
 _HASH_SIZE = 16
 
 
@@ -24,9 +26,6 @@ class TestHash:
 
 class TestListing:
     def test(self):
-        # Check that the image listing file contents are up to date.
-        import recreate_v4_files_listing as v4list
-
         file_names = set(v4list.get_v4_imagefile_names())
         listing_filepath = Path(v4list.V4_LISTFILE_NAME)
         assert listing_filepath.exists()
