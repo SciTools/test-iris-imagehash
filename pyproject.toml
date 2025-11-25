@@ -106,6 +106,7 @@ log_cli_level = "INFO"
 minversion = "6.0"
 testpaths = "./run_test.py"
 xfail_strict = "True"
+log_level = "INFO"
 
 [tool.repo-review]
 ignore = [
