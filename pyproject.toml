@@ -1,3 +1,93 @@
+[tool.mypy]
+# See https://mypy.readthedocs.io/en/stable/config_file.html
+ignore_missing_imports = true
+warn_unused_configs = true
+warn_unreachable = true
+enable_error_code = ["ignore-without-code", "redundant-expr", "truthy-bool"]
+exclude = [
+    "^run_test\\.py$",
+]
+strict = true
+
+[tool.numpydoc_validation]
+checks = [
+    "all",  # Enable all numpydoc validation rules, apart from the following:
+
+    # -> Docstring text (summary) should start in the line immediately
+    #    after the opening quotes (not in the same line, or leaving a
+    #    blank line in between)
+    "GL01",  # Permit summary line on same line as docstring opening quotes.
+
+    # -> Closing quotes should be placed in the line after the last text
+    #    in the docstring (do not close the quotes in the same line as
+    #    the text, or leave a blank line between the last text and the
+    #    quotes)
+    "GL02",  # Permit a blank line before docstring closing quotes.
+
+    # -> Double line break found; please use only one blank line to
+    #    separate sections or paragraphs, and do not leave blank lines
+    #    at the end of docstrings
+    "GL03",  # Ignoring.
+
+    # -> See Also section not found
+    "SA01",  # Not all docstrings require a "See Also" section.
+
+    # -> No extended summary found
+    "ES01",  # Not all docstrings require an "Extended Summary" section.
+
+    # -> No examples section found
+    "EX01",  # Not all docstrings require an "Examples" section.
+
+    # -> No Yields section found
+    "YD01",  # Not all docstrings require a "Yields" section.
+]
+exclude = [
+    '\.__eq__$',
+    '\.__ne__$',
+    '\.__repr__$',
+]
+
+[tool.pytest.ini_options]
+# configure settings as recommended by repo-review:
+addopts = ["-ra", "--strict-config", "--strict-markers"]
+filterwarnings = ["error"]
+log_cli = "True"
+log_cli_level = "INFO"
+minversion = "6.0"
+testpaths = "./run_test.py"
+xfail_strict = "True"
+log_level = "INFO"
+
+[tool.repo-review]
+ignore = [
+    # https://learn.scientific-python.org/development/guides/style/#PC170
+    "PC170",  # Uses PyGrep hooks
+    # https://learn.scientific-python.org/development/guides/style/#PC180
+    "PC180",  # Uses prettier
+    # https://learn.scientific-python.org/development/guides/packaging-simple#PP006
+    "PP006",  # Uses dev dependency group
+
+    # https://learn.scientific-python.org/development/guides/gha-basic/
+    "GH",     # TODO: switch to GitHub Actions
+
+    # test-iris-imagehash is very simple, and not a package, which exempts the
+    #  following rules.
+    # https://learn.scientific-python.org/development/guides/style/#PP002
+    "PP002",  # Build-system
+    # https://learn.scientific-python.org/development/guides/style/#PP003
+    "PP003",  # Wheel dependency
+    # https://learn.scientific-python.org/development/guides/packaging-simple/#package-structure
+    "PY005",  # tests folder
+    # https://learn.scientific-python.org/development/guides/style/#PY004
+    "PY004",  # Docs folder
+    # https://learn.scientific-python.org/development/guides/style/#PY007
+    "PY007",  # Nox/tox
+    # https://learn.scientific-python.org/development/guides/style/#RF003
+    "RF003",  # Ruff src directory
+    # https://learn.scientific-python.org/development/guides/docs/#readthedocsyaml
+    "RTD",    # ReadTheDocs
+]
+
 [tool.ruff]
 line-length = 88
 target-version = "py310"
@@ -47,93 +137,3 @@ known-first-party = ["iris"]
 
 [tool.ruff.lint.pydocstyle]
 convention = "numpy"
-
-[tool.numpydoc_validation]
-checks = [
-    "all",  # Enable all numpydoc validation rules, apart from the following:
-
-    # -> Docstring text (summary) should start in the line immediately
-    #    after the opening quotes (not in the same line, or leaving a
-    #    blank line in between)
-    "GL01",  # Permit summary line on same line as docstring opening quotes.
-
-    # -> Closing quotes should be placed in the line after the last text
-    #    in the docstring (do not close the quotes in the same line as
-    #    the text, or leave a blank line between the last text and the
-    #    quotes)
-    "GL02",  # Permit a blank line before docstring closing quotes.
-
-    # -> Double line break found; please use only one blank line to
-    #    separate sections or paragraphs, and do not leave blank lines
-    #    at the end of docstrings
-    "GL03",  # Ignoring.
-
-    # -> See Also section not found
-    "SA01",  # Not all docstrings require a "See Also" section.
-
-    # -> No extended summary found
-    "ES01",  # Not all docstrings require an "Extended Summary" section.
-
-    # -> No examples section found
-    "EX01",  # Not all docstrings require an "Examples" section.
-
-    # -> No Yields section found
-    "YD01",  # Not all docstrings require a "Yields" section.
-]
-exclude = [
-    '\.__eq__$',
-    '\.__ne__$',
-    '\.__repr__$',
-]
-
-[tool.mypy]
-# See https://mypy.readthedocs.io/en/stable/config_file.html
-ignore_missing_imports = true
-warn_unused_configs = true
-warn_unreachable = true
-enable_error_code = ["ignore-without-code", "redundant-expr", "truthy-bool"]
-exclude = [
-    "^run_test\\.py$",
-]
-strict = true
-
-[tool.pytest.ini_options]
-# configure settings as recommended by repo-review:
-addopts = ["-ra", "--strict-config", "--strict-markers"]
-filterwarnings = ["error"]
-log_cli = "True"
-log_cli_level = "INFO"
-minversion = "6.0"
-testpaths = "./run_test.py"
-xfail_strict = "True"
-log_level = "INFO"
-
-[tool.repo-review]
-ignore = [
-    # https://learn.scientific-python.org/development/guides/style/#PC170
-    "PC170",  # Uses PyGrep hooks
-    # https://learn.scientific-python.org/development/guides/style/#PC180
-    "PC180",  # Uses prettier
-    # https://learn.scientific-python.org/development/guides/packaging-simple#PP006
-    "PP006",  # Uses dev dependency group
-
-    # https://learn.scientific-python.org/development/guides/gha-basic/
-    "GH",     # TODO: switch to GitHub Actions
-
-    # test-iris-imagehash is very simple, and not a package, which exempts the
-    #  following rules.
-    # https://learn.scientific-python.org/development/guides/style/#PP002
-    "PP002",  # Build-system
-    # https://learn.scientific-python.org/development/guides/style/#PP003
-    "PP003",  # Wheel dependency
-    # https://learn.scientific-python.org/development/guides/packaging-simple/#package-structure
-    "PY005",  # tests folder
-    # https://learn.scientific-python.org/development/guides/style/#PY004
-    "PY004",  # Docs folder
-    # https://learn.scientific-python.org/development/guides/style/#PY007
-    "PY007",  # Nox/tox
-    # https://learn.scientific-python.org/development/guides/style/#RF003
-    "RF003",  # Ruff src directory
-    # https://learn.scientific-python.org/development/guides/docs/#readthedocsyaml
-    "RTD",    # ReadTheDocs
-]
